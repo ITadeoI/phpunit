@@ -7,6 +7,7 @@
  */
 class Queue
 {
+    public const MAX_ITEM = 5;
 
     /**
      * Queue items
@@ -18,9 +19,15 @@ class Queue
      * Add an item to the end of the queue
      *
      * @param mixed $item The item
+     * @throws QueueException
      */
     public function push($item)
     {
+        if ($this->getCount() == self::MAX_ITEM) {
+
+            throw new QueueException('Queue is full');
+        }
+
         $this->items[] = $item;
     }
 
@@ -44,6 +51,9 @@ class Queue
         return count($this->items);
     }
 
+    /**
+     * @return array
+     */
     public function clean()
     {
         return $this->items = [];
